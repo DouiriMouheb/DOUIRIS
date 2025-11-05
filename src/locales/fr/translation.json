@@ -7,7 +7,12 @@
     "get_in_touch": "Contact"
   },
   "hero": {
-    "headline": "Nous construisons des plateformes web modernes pour des équipes ambitieuses",
+    "headline": "Nous Construisons Des Plateformes Web Modernes Pour Des Equipes Ambitieuses",
+    "headline_custom": "Solutions Logicielles Sur Mesure Adaptées A Vos Besoins",
+    "headline_cloud": "Experts En Infrastructure Cloud Et Cybersécurité",
+    "headline_payment": "Intégration De Paiement Sécurisé Et Assistants IA",
+    "headline_ai": "Solutions IA pour L'automatisation D'entreprise",
+    "headline_digital": "Votre Equipe De Digitalisation Complète, Prête A Agir",
     "description": "DOUIRI'S est une société informatique spécialisée dans les applications web, les services cloud et les outils pour développeurs. Nous concevons des produits résilients et évolutifs qui séduisent les utilisateurs et accélèrent les entreprises.",
     "contact_us": "Contactez-nous",
     "our_work": "Nos réalisations"

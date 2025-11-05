@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Menu, Phone, Mail, Code, Server, CheckCircle } from 'lucide-react'
+import { Menu, Phone, Mail, CheckCircle } from 'lucide-react'
 import i18n from '../i18n'
 import EmailModal from '../components/EmailModal'
+import Hero from '../components/Hero'
+import ServicesGrid from '../components/ServicesGrid'
+import ContactCard from '../components/ContactCard'
 
 export default function LandingPage() {
   const [lang, setLang] = useState(i18n.language || 'en')
@@ -22,163 +25,148 @@ export default function LandingPage() {
   ]
 
   const [showEmailModal, setShowEmailModal] = useState(false)
+  // scroll-driven shrink state (0 = initial full-hero, 1 = scrolled)
+  const [shrink, setShrink] = useState(0)
+
+  useEffect(() => {
+    let raf = null
+    const maxScroll = 200 // px after which we consider the hero collapsed
+
+    const onScroll = () => {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        const scrollY = window.scrollY || window.pageYOffset || 0
+        const progress = Math.max(0, Math.min(scrollY / maxScroll, 1))
+        setShrink(progress)
+        raf = null
+      })
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    // initialise
+    onScroll()
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-slate-100">
-      <header className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="bg-indigo-500 text-white font-bold px-3 py-1 rounded">{t('company')}</div>
-          <nav className="hidden md:flex gap-6 text-sm text-slate-200/90">
-            <a className="hover:text-white" href="#services">{t('nav.services')}</a>
-            <a className="hover:text-white" href="#work">{t('nav.work')}</a>
-            <a className="hover:text-white" href="#contact">{t('nav.contact')}</a>
-          </nav>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center gap-2">
-            {languages.map((l) => (
-              <button
-                key={l.code}
-                onClick={() => i18n.changeLanguage(l.code)}
-                aria-pressed={lang === l.code}
-                className={`px-2 py-1 rounded text-xs ${lang === l.code ? 'bg-slate-700 text-white' : 'bg-transparent text-slate-300 hover:bg-slate-700/30'}`}>
-                {l.label}
-              </button>
-            ))}
-            <button onClick={() => setShowEmailModal(true)} className="ml-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm">{t('nav.get_in_touch')}</button>
+      {/* Sticky header with glass morphism */}
+      <header
+        className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md"
+        style={{
+          // hide header until user scrolls a little
+          opacity: shrink > 0 ? 1 : 0,
+          transform: shrink > 0 ? 'translateY(0)' : 'translateY(-12px)',
+          transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+          pointerEvents: shrink > 0 ? 'auto' : 'none',
+          background: shrink > 0.3 ? 'rgba(15, 23, 42, 0.8)' : 'transparent',
+          borderBottom: shrink > 0.3 ? '1px solid rgba(148, 163, 184, 0.1)' : '1px solid transparent'
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="bg-indigo-500 text-white font-bold px-2 sm:px-3 py-1 rounded text-sm sm:text-base">{t('company')}</div>
+            <nav className="hidden md:flex gap-4 lg:gap-6 text-sm text-slate-200/90">
+              <a className="hover:text-white transition-colors" href="#services">{t('nav.services')}</a>
+              <a className="hover:text-white transition-colors" href="#work">{t('nav.work')}</a>
+              <a className="hover:text-white transition-colors" href="#contact">{t('nav.contact')}</a>
+            </nav>
           </div>
-          <button className="md:hidden p-2 rounded-md bg-slate-700/40">
-            <Menu className="w-5 h-5 text-slate-100" />
-          </button>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <div className="hidden md:flex items-center gap-2">
+              {languages.map((l) => (
+                <button
+                  key={l.code}
+                  onClick={() => i18n.changeLanguage(l.code)}
+                  aria-pressed={lang === l.code}
+                  className={`px-2 py-1 rounded text-xs transition-all ${lang === l.code ? 'bg-slate-700 text-white' : 'bg-transparent text-slate-300 hover:bg-slate-700/30'}`}>
+                  {l.label}
+                </button>
+              ))}
+              <button onClick={() => setShowEmailModal(true)} className="ml-2 bg-indigo-600 hover:bg-indigo-700 text-white px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm transition-all transform hover:-translate-y-0.5">{t('nav.get_in_touch')}</button>
+            </div>
+            <button 
+              onClick={() => setShowEmailModal(true)}
+              className="md:hidden p-2 rounded-md bg-indigo-600 hover:bg-indigo-700 transition-colors"
+            >
+              <Mail className="w-5 h-5 text-slate-100" />
+            </button>
+          </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-12">
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">{t('hero.headline')}</h1>
-            <p className="mt-4 text-slate-300 max-w-xl">{t('hero.description')}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button onClick={() => setShowEmailModal(true)} className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-3 rounded-md shadow">{t('hero.contact_us')}</button>
-              <a href="#work" className="inline-flex items-center gap-2 border border-slate-600 text-slate-100 px-4 py-3 rounded-md hover:bg-slate-700/30">{t('hero.our_work')}</a>
-            </div>
+      {/* Scroll indicator - shows when shrink === 0 */}
+      <div
+        className="fixed bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-30 animate-bounce"
+        style={{
+          opacity: shrink === 0 ? 1 : 0,
+          transition: 'opacity 400ms ease',
+          pointerEvents: 'none'
+        }}
+      >
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-slate-400 text-xs sm:text-sm">Scroll</span>
+          <svg className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
 
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex items-start gap-3">
-                <div className="p-2 bg-slate-700/40 rounded-lg">
-                  <Code className="w-6 h-6 text-indigo-400" />
-                </div>
-                <div>
-                  <h4 className="font-semibold">{t('features.custom_web_apps')}</h4>
-                  <p className="text-slate-300 text-sm">Modern React and server-driven apps focused on performance.</p>
-                </div>
-              </div>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-0 pb-12">
+        <Hero t={t} shrink={shrink} onContact={() => setShowEmailModal(true)} />
 
-              <div className="flex items-start gap-3">
-                <div className="p-2 bg-slate-700/40 rounded-lg">
-                  <Server className="w-6 h-6 text-indigo-400" />
-                </div>
-                <div>
-                  <h4 className="font-semibold">{t('features.cloud_devops')}</h4>
-                  <p className="text-slate-300 text-sm">CI/CD, infrastructure automation, and reliable deployments.</p>
-                </div>
-              </div>
-            </div>
+        <section
+          id="services"
+          className="mt-16 sm:mt-20 md:mt-24 pt-12 sm:pt-14 md:pt-16"
+          style={{
+            opacity: shrink > 0 ? 1 : 0,
+            transform: shrink > 0 ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 420ms ease, transform 420ms ease'
+          }}
+        >
+          <div className="text-center mb-8 sm:mb-10 md:mb-12 px-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">{t('services_title')}</h2>
+            <p className="mt-2 sm:mt-3 text-slate-300 max-w-2xl mx-auto text-base sm:text-lg">End-to-end product delivery: design, engineering, and operations — tailored to your team.</p>
           </div>
 
-          <div className="relative">
-            <div className="mx-auto w-full max-w-lg bg-gradient-to-tr from-indigo-600/20 to-slate-700/40 rounded-2xl p-8 shadow-xl">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-xl font-semibold">{t('start_project.title')}</h3>
-                  <p className="text-sm text-slate-300">{t('start_project.desc')}</p>
-                </div>
-                <div className="text-slate-200/70 text-sm">Est. time: 2-4 weeks</div>
-              </div>
-
-              <form className="mt-6 grid grid-cols-1 gap-3">
-                <input aria-label="Name" placeholder="Your name" className="w-full px-4 py-3 rounded-md bg-slate-800/60 border border-slate-700 placeholder-slate-400 text-white" />
-                <input aria-label="Email" placeholder="Email" className="w-full px-4 py-3 rounded-md bg-slate-800/60 border border-slate-700 placeholder-slate-400 text-white" />
-                <textarea aria-label="Message" placeholder="Project description" rows="4" className="w-full px-4 py-3 rounded-md bg-slate-800/60 border border-slate-700 placeholder-slate-400 text-white"></textarea>
-                <div className="flex items-center justify-between">
-                  <button className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md">{t('start_project.request_quote')}</button>
-                  <div className="text-sm text-slate-300 flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> {t('start_project.secure')}</div>
-                </div>
-              </form>
-            </div>
-
-            <div className="hidden md:block absolute -right-8 top-8 w-48 h-48 rounded-full bg-gradient-to-r from-indigo-500 to-pink-500 blur-3xl opacity-30"></div>
-          </div>
+          <ServicesGrid t={t} />
         </section>
 
-        <section id="services" className="mt-16">
-          <h2 className="text-2xl font-semibold">{t('services_title')}</h2>
-          <p className="mt-2 text-slate-300 max-w-2xl">End-to-end product delivery: design, engineering, and operations — tailored to your team.</p>
-
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-4 rounded-lg bg-slate-700/30">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-slate-800 rounded"><Code className="w-5 h-5 text-indigo-300" /></div>
-                <div>
-                  <h4 className="font-semibold">Front-end</h4>
-                  <p className="text-sm text-slate-300">React, performance and accessible interfaces.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-lg bg-slate-700/30">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-slate-800 rounded"><Server className="w-5 h-5 text-indigo-300" /></div>
-                <div>
-                  <h4 className="font-semibold">Back-end</h4>
-                  <p className="text-sm text-slate-300">APIs, integrations, and scalable services.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-lg bg-slate-700/30">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-slate-800 rounded"><Phone className="w-5 h-5 text-indigo-300" /></div>
-                <div>
-                  <h4 className="font-semibold">{t('features.support')}</h4>
-                  <p className="text-sm text-slate-300">On-call, maintenance and continuous improvements.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-lg bg-slate-700/30">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-slate-800 rounded"><Mail className="w-5 h-5 text-indigo-300" /></div>
-                <div>
-                  <h4 className="font-semibold">{t('features.consulting')}</h4>
-                  <p className="text-sm text-slate-300">Architecture reviews and team training.</p>
-                </div>
-              </div>
-            </div>
+        <section
+          id="contact"
+          className="mt-16 sm:mt-20 md:mt-24 pt-12 sm:pt-14 md:pt-16"
+          style={{
+            opacity: shrink > 0 ? 1 : 0,
+            transform: shrink > 0 ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 420ms ease, transform 420ms ease'
+          }}
+        >
+          <div className="text-center mb-6 sm:mb-8 px-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">{t('contact_title')}</h2>
+            <p className="mt-2 sm:mt-3 text-slate-300 text-base sm:text-lg">Reach out to start a conversation about your project.</p>
           </div>
-        </section>
 
-        <section id="contact" className="mt-16">
-          <h2 className="text-2xl font-semibold">{t('contact_title')}</h2>
-          <p className="mt-2 text-slate-300">Reach out to start a conversation about your project.</p>
-
-          <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <a href={`tel:${t('phone')}`} className="inline-flex items-center gap-2 bg-slate-700/30 px-4 py-3 rounded-md">
-              <Phone className="w-5 h-5 text-indigo-300" /> {t('phone')}
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 px-4">
+            <a href={`tel:${t('phone')}`} className="flex items-center justify-center gap-2 bg-slate-700/30 hover:bg-slate-700/50 px-5 sm:px-6 py-4 rounded-lg transition-all transform hover:-translate-y-1 hover:shadow-lg">
+              <Phone className="w-5 h-5 text-indigo-300 flex-shrink-0" /> <span className="font-medium text-sm sm:text-base">{t('phone')}</span>
             </a>
-            <a href={`mailto:${t('email')}`} className="inline-flex items-center gap-2 bg-slate-700/30 px-4 py-3 rounded-md">
-              <Mail className="w-5 h-5 text-indigo-300" /> {t('email')}
+            <a href={`mailto:${t('email')}`} className="flex items-center justify-center gap-2 bg-slate-700/30 hover:bg-slate-700/50 px-5 sm:px-6 py-4 rounded-lg transition-all transform hover:-translate-y-1 hover:shadow-lg">
+              <Mail className="w-5 h-5 text-indigo-300 flex-shrink-0" /> <span className="font-medium text-sm sm:text-base">{t('email')}</span>
             </a>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-slate-700/30 mt-12 py-6">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-sm text-slate-400">{t('footer', { year: new Date().getFullYear() })}</div>
-          <div className="flex items-center gap-4 text-slate-300 text-sm">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
+      <footer className="border-t border-slate-700/30 mt-16 sm:mt-20 md:mt-24 py-6 sm:py-8 bg-slate-900/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+          <div className="text-xs sm:text-sm text-slate-400 text-center sm:text-left">{t('footer', { year: new Date().getFullYear() })}</div>
+          <div className="flex items-center gap-4 sm:gap-6 text-slate-300 text-xs sm:text-sm">
+            <a href="#" className="hover:text-white transition-colors">Privacy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms</a>
+            <a href="#" className="hover:text-white transition-colors">© {t('company')}</a>
           </div>
         </div>
       </footer>

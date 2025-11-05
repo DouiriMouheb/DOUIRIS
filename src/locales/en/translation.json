@@ -7,7 +7,12 @@
     "get_in_touch": "Get in touch"
   },
   "hero": {
-    "headline": "We build modern web platforms for ambitious teams",
+    "headline": "We Build Modern Web Platforms For Ambitious Teams",
+    "headline_custom": "Custom Software Solutions Tailored To Your Needs",
+    "headline_cloud": "Cloud Infrastructure & Yybersecurity Experts",
+    "headline_payment": "Secure Yayment Integration & AI Assistants",
+    "headline_ai": "AI-powered Solutions For Business Automation",
+    "headline_digital": "Your Full Digitalization Team, Ready For Action",
     "description": "DOUIRI'S is an IT company specializing in web applications, cloud services, and developer tooling. We craft resilient, scalable products that delight users and accelerate businesses.",
     "contact_us": "Contact Us",
     "our_work": "Our Work"
@@ -26,8 +31,8 @@
   },
   "services_title": "What we do",
   "contact_title": "Get in touch",
-  "phone": "+1 (234) 567-890",
-  "email": "hello@douiris.example",
+  "phone": "+39 33 12 30 65 89",
+  "email": "mouhebdouiri@yahoo.com",
   "footer": "© {{year}} DOUIRI'S — Built with care."
   ,
   "modal": {
