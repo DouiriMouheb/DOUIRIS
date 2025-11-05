@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import  { useState, useEffect } from 'react'
 
 export default function Hero({ t, shrink = 0, onContact }) {
   const [currentPhrase, setCurrentPhrase] = useState(0)
@@ -66,28 +66,44 @@ export default function Hero({ t, shrink = 0, onContact }) {
           <p className="mt-3 sm:mt-4 text-slate-300 max-w-2xl mx-auto text-sm sm:text-base px-4">{t('hero.description')}</p>
 
           <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row flex-wrap gap-3 justify-center px-4">
-            <button onClick={onContact} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-md shadow-lg transform hover:-translate-y-0.5 transition text-sm sm:text-base">{t('hero.contact_us')}</button>
-            <a href="#work" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-slate-600 text-slate-100 px-5 py-2.5 rounded-md hover:bg-slate-700/30 text-sm sm:text-base">{t('hero.our_work')}</a>
+            <button 
+              onClick={onContact} 
+              aria-label="Contact us to start your project"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900 text-white px-5 py-2.5 rounded-md shadow-lg transform hover:-translate-y-0.5 transition text-sm sm:text-base"
+            >
+              {t('hero.contact_us')}
+            </button>
+            <a 
+              href="#work" 
+              aria-label="View our work portfolio"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-slate-600 text-slate-100 px-5 py-2.5 rounded-md hover:bg-slate-700/30 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900 text-sm sm:text-base"
+            >
+              {t('hero.our_work')}
+            </a>
           </div>
 
           <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-xl mx-auto px-4">
             <div className="flex items-start gap-3 text-left p-4 sm:p-0">
-              <div className="p-2 bg-slate-700/40 rounded-lg">
-                <svg className="w-6 h-6 text-indigo-400" />
+              <div className="p-2 bg-slate-700/40 rounded-lg flex-shrink-0">
+                <svg className="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
               </div>
               <div>
-                <h4 className="font-semibold">{t('features.custom_web_apps')}</h4>
-                <p className="text-slate-300 text-sm">Modern React and server-driven apps focused on performance.</p>
+                <h4 className="font-semibold text-sm sm:text-base">{t('features.custom_web_apps')}</h4>
+                <p className="text-slate-300 text-xs sm:text-sm mt-1">Modern React and server-driven apps focused on performance.</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-3 text-left">
-              <div className="p-2 bg-slate-700/40 rounded-lg">
-                <svg className="w-6 h-6 text-indigo-400" />
+            <div className="flex items-start gap-3 text-left p-4 sm:p-0">
+              <div className="p-2 bg-slate-700/40 rounded-lg flex-shrink-0">
+                <svg className="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                </svg>
               </div>
               <div>
-                <h4 className="font-semibold">{t('features.cloud_devops')}</h4>
-                <p className="text-slate-300 text-sm">CI/CD, infrastructure automation, and reliable deployments.</p>
+                <h4 className="font-semibold text-sm sm:text-base">{t('features.cloud_devops')}</h4>
+                <p className="text-slate-300 text-xs sm:text-sm mt-1">CI/CD, infrastructure automation, and reliable deployments.</p>
               </div>
             </div>
           </div>

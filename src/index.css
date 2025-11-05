@@ -146,6 +146,42 @@ body {
 
 * { box-sizing: border-box; }
 
+/* Screen reader only utility for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:not(.focus\:not-sr-only:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: initial;
+  margin: initial;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
 /* Smooth page transitions */
 @keyframes fadeIn {
   from {
@@ -216,11 +252,14 @@ main {
   animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Focus visible styles for accessibility */
-*:focus-visible {
-  outline: 3px solid hsl(var(--red));
+/* Focus visible styles for accessibility - removed global to avoid conflicts with component-specific focus styles */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid hsl(var(--red));
   outline-offset: 2px;
-  border-radius: 0.25rem;
 }
 
 /* Smooth scrolling */

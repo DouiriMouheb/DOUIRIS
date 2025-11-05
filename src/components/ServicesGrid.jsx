@@ -1,4 +1,3 @@
-import React from 'react'
 import { Code, Server, Phone, Mail } from 'lucide-react'
 
 export default function ServicesGrid({ t }) {
@@ -32,15 +31,18 @@ export default function ServicesGrid({ t }) {
   return (
     <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 px-4 sm:px-0">
       {items.map((it, idx) => (
-        <div 
+        <article
           key={idx} 
-          className={`group p-5 sm:p-6 rounded-xl bg-gradient-to-br ${it.gradient} backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl`}
+          tabIndex="0"
+          className={`group p-5 sm:p-6 rounded-xl bg-gradient-to-br ${it.gradient} backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-400/50 transition-all duration-300 transform hover:-translate-y-2 focus-within:-translate-y-2 hover:shadow-2xl cursor-pointer outline-none`}
           style={{
             animation: `fadeInUp 0.6s ease-out ${idx * 0.1}s both`
           }}
+          role="article"
+          aria-label={it.title}
         >
           <div className="flex flex-col gap-3 sm:gap-4">
-            <div className="p-2.5 sm:p-3 bg-slate-800/50 rounded-lg w-fit group-hover:scale-110 transition-transform duration-300">
+            <div className="p-2.5 sm:p-3 bg-slate-800/50 rounded-lg w-fit group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
               {it.icon}
             </div>
             <div>
@@ -48,7 +50,7 @@ export default function ServicesGrid({ t }) {
               <p className="text-slate-400 text-sm leading-relaxed">{it.desc}</p>
             </div>
           </div>
-        </div>
+        </article>
       ))}
     </div>
   )
