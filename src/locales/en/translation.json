@@ -1,0 +1,42 @@
+{
+  "company": "DOUIRI'S",
+  "nav": {
+    "services": "Services",
+    "work": "Work",
+    "contact": "Contact",
+    "get_in_touch": "Get in touch"
+  },
+  "hero": {
+    "headline": "We build modern web platforms for ambitious teams",
+    "description": "DOUIRI'S is an IT company specializing in web applications, cloud services, and developer tooling. We craft resilient, scalable products that delight users and accelerate businesses.",
+    "contact_us": "Contact Us",
+    "our_work": "Our Work"
+  },
+  "features": {
+    "custom_web_apps": "Custom Web Apps",
+    "cloud_devops": "Cloud & DevOps",
+    "support": "Support",
+    "consulting": "Consulting"
+  },
+  "start_project": {
+    "title": "Start your project",
+    "desc": "Tell us about your idea and we'll propose a plan.",
+    "request_quote": "Request Quote",
+    "secure": "Secure"
+  },
+  "services_title": "What we do",
+  "contact_title": "Get in touch",
+  "phone": "+1 (234) 567-890",
+  "email": "hello@douiris.example",
+  "footer": "© {{year}} DOUIRI'S — Built with care."
+  ,
+  "modal": {
+    "title": "Send us an email",
+    "name": "Your name",
+    "email": "Your email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send email",
+    "close": "Close"
+  }
+}

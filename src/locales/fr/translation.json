@@ -1,0 +1,42 @@
+{
+  "company": "DOUIRI'S",
+  "nav": {
+    "services": "Services",
+    "work": "Réalisations",
+    "contact": "Contact",
+    "get_in_touch": "Contact"
+  },
+  "hero": {
+    "headline": "Nous construisons des plateformes web modernes pour des équipes ambitieuses",
+    "description": "DOUIRI'S est une société informatique spécialisée dans les applications web, les services cloud et les outils pour développeurs. Nous concevons des produits résilients et évolutifs qui séduisent les utilisateurs et accélèrent les entreprises.",
+    "contact_us": "Contactez-nous",
+    "our_work": "Nos réalisations"
+  },
+  "features": {
+    "custom_web_apps": "Applications web sur mesure",
+    "cloud_devops": "Cloud & DevOps",
+    "support": "Support",
+    "consulting": "Conseil"
+  },
+  "start_project": {
+    "title": "Démarrez votre projet",
+    "desc": "Parlez-nous de votre idée et nous vous proposerons un plan.",
+    "request_quote": "Demander un devis",
+    "secure": "Sécurisé"
+  },
+  "services_title": "Ce que nous faisons",
+  "contact_title": "Entrons en contact",
+  "phone": "+1 (234) 567-890",
+  "email": "hello@douiris.example",
+  "footer": "© {{year}} DOUIRI'S — Construit avec soin."
+  ,
+  "modal": {
+    "title": "Envoyez-nous un e-mail",
+    "name": "Votre nom",
+    "email": "Votre e-mail",
+    "subject": "Sujet",
+    "message": "Message",
+    "send": "Envoyer",
+    "close": "Fermer"
+  }
+}
