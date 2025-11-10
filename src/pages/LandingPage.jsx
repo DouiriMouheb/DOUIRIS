@@ -58,14 +58,21 @@ export default function LandingPage() {
 
       <main className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-hidden pt-24 sm:pt-32">
         {/* Company Introduction */}
-        <section className="py-16 sm:py-24 text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-light text-white mb-6 tracking-wide">
-            {t('company')}
-          </h1>
-          <div className="w-24 h-px bg-[#BB8400] mx-auto mb-8" />
-          <p className="text-lg sm:text-xl text-white/60 max-w-3xl mx-auto font-light leading-relaxed">
-            {t('hero.description')}
-          </p>
+        <section className="py-16 sm:py-24 text-center relative">
+          {/* Glowing heartbeat effect */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+            <div className="w-64 h-64 sm:w-96 sm:h-96 bg-gray-400 rounded-full blur-3xl opacity-20 animate-heartbeat" />
+          </div>
+          
+          <div className="relative z-10">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-light text-white mb-6 tracking-wide">
+              {t('company')}
+            </h1>
+            <div className="w-24 h-px bg-[#BB8400] mx-auto mb-8" />
+            <p className="text-lg sm:text-xl text-white/60 max-w-3xl mx-auto font-light leading-relaxed">
+              {t('hero.description')}
+            </p>
+          </div>
         </section>
 
         {/* Services Section */}
