@@ -25,11 +25,11 @@ export default function ServicesGrid({ t }) {
   ]
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {items.map((it, idx) => (
         <article
           key={idx}
-          className="group bg-black p-12 hover:bg-white/5 transition-all duration-500 cursor-pointer"
+          className="group bg-black p-12 hover:bg-white/5 transition-all duration-500 cursor-pointer shadow-lg shadow-gray-800/50 hover:shadow-xl hover:shadow-gray-700/60"
           style={{
             animation: `fadeInUp 0.8s ease-out ${idx * 0.15}s both`
           }}

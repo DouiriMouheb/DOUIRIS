@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Menu, Phone, Mail, CheckCircle } from 'lucide-react'
+import { Phone, Mail } from 'lucide-react'
 import i18n from '../i18n'
 import EmailModal from '../components/EmailModal'
-import Hero from '../components/Hero'
 import ServicesGrid from '../components/ServicesGrid'
-import ContactCard from '../components/ContactCard'
 
 export default function LandingPage() {
   const [lang, setLang] = useState(i18n.language || 'en')
@@ -21,61 +19,16 @@ export default function LandingPage() {
     { code: 'en', label: 'EN' },
     { code: 'fr', label: 'FR' },
     { code: 'it', label: 'IT' },
-    
   ]
 
   const [showEmailModal, setShowEmailModal] = useState(false)
-  // scroll-driven shrink state (0 = initial full-hero, 1 = scrolled)
-  const [shrink, setShrink] = useState(0)
-
-  useEffect(() => {
-    let raf = null
-    const maxScroll = 200 // px after which we consider the hero collapsed
-
-    const onScroll = () => {
-      if (raf) return
-      raf = requestAnimationFrame(() => {
-        const scrollY = window.scrollY || window.pageYOffset || 0
-        const progress = Math.max(0, Math.min(scrollY / maxScroll, 1))
-        setShrink(progress)
-        raf = null
-      })
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true })
-    // initialise
-    onScroll()
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      if (raf) cancelAnimationFrame(raf)
-    }
-  }, [])
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      {/* Skip to main content link for accessibility */}
-      <a 
-        href="#main-content" 
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#BB8400] focus:text-white focus:rounded focus:outline-none"
-      >
-        Skip to main content
-      </a>
-
-      {/* Minimal header */}
-      <header
-        className="fixed top-0 left-0 right-0 z-40"
-        role="banner"
-        style={{
-          opacity: shrink > 0 ? 1 : 0,
-          transform: shrink > 0 ? 'translateY(0)' : 'translateY(-12px)',
-          transition: 'all 300ms ease',
-          pointerEvents: shrink > 0 ? 'auto' : 'none',
-          background: shrink > 0.3 ? 'rgba(0, 0, 0, 0.98)' : 'transparent',
-          borderBottom: shrink > 0.3 ? '1px solid rgba(187, 132, 0, 0.1)' : '1px solid transparent'
-        }}
-      >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 flex items-center justify-between gap-3">
-          <div className="text-base sm:text-xl font-light tracking-wider text-[#BB8400] truncate">{t('company')}</div>
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-40 bg-black/95 backdrop-blur-sm border-b border-[#BB8400]/10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex items-center justify-between gap-3">
+          <div className="text-xl sm:text-2xl md:text-3xl font-light tracking-wider text-[#BB8400] drop-shadow-[0_0_8px_rgba(187,132,0,0.5)]">{t('company')}</div>
           <div className="flex items-center gap-3 sm:gap-8 flex-shrink-0">
             <nav className="hidden md:flex gap-4 lg:gap-8 text-sm" aria-label="Main navigation">
               <a className="text-white/70 hover:text-[#BB8400] transition-colors whitespace-nowrap" href="#services">{t('nav.services')}</a>
@@ -95,55 +48,37 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Scroll indicator */}
-      <div
-        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-30"
-        style={{
-          opacity: shrink === 0 ? 1 : 0,
-          transition: 'opacity 400ms ease',
-          pointerEvents: 'none'
-        }}
-        aria-hidden="true"
-      >
-        <div className="w-px h-16 bg-gradient-to-b from-transparent via-[#BB8400]/50 to-transparent" />
-      </div>
+      <main className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-hidden pt-24 sm:pt-32">
+        {/* Company Introduction */}
+        <section className="py-16 sm:py-24 text-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-light text-white mb-6 tracking-wide">
+            {t('company')}
+          </h1>
+          <div className="w-24 h-px bg-[#BB8400] mx-auto mb-8" />
+          <p className="text-lg sm:text-xl text-white/60 max-w-3xl mx-auto font-light leading-relaxed">
+            {t('hero.description')}
+          </p>
+        </section>
 
-      <main id="main-content" className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-hidden">
-        <Hero t={t} shrink={shrink} onContact={() => setShowEmailModal(true)} />
-
-        <section
-          id="services"
-          className="py-32"
-          style={{
-            opacity: shrink > 0 ? 1 : 0,
-            transform: shrink > 0 ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'opacity 600ms ease, transform 600ms ease'
-          }}
-        >
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-light mb-4 text-white">{t('services_title')}</h2>
+        {/* Services Section */}
+        <section id="services" className="py-16 sm:py-24">
+          <div className="text-center mb-16 sm:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-4 text-white">{t('services_title')}</h2>
             <div className="w-16 h-px bg-[#BB8400] mx-auto" />
           </div>
 
           <ServicesGrid t={t} />
         </section>
 
-        <section
-          id="contact"
-          className="py-32 border-t border-white/5"
-          style={{
-            opacity: shrink > 0 ? 1 : 0,
-            transform: shrink > 0 ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'opacity 600ms ease, transform 600ms ease'
-          }}
-        >
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-light mb-4 text-white">{t('contact_title')}</h2>
+        {/* Contact Section */}
+        <section id="contact" className="py-16 sm:py-24 border-t border-white/5">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-4 text-white">{t('contact_title')}</h2>
             <div className="w-16 h-px bg-[#BB8400] mx-auto mb-8" />
-            <p className="text-white/60 text-lg max-w-2xl mx-auto">Let's create something exceptional together</p>
+            <p className="text-white/60 text-base sm:text-lg max-w-2xl mx-auto font-light">Let's create something exceptional together</p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 max-w-2xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 max-w-2xl mx-auto">
             <a 
               href={`tel:${t('phone')}`} 
               className="group flex items-center gap-3 text-white/70 hover:text-[#BB8400] transition-colors"
@@ -163,12 +98,13 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="border-t border-white/5 py-8" role="contentinfo">
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="border-t border-white/5 py-6 sm:py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-sm text-white/40 font-light">{t('footer', { year: new Date().getFullYear() })}</div>
           <div className="text-sm text-white/40">© {t('company')}</div>
         </div>
       </footer>
+      
       <EmailModal open={showEmailModal} onClose={() => setShowEmailModal(false)} />
     </div>
   )
