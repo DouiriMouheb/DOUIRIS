@@ -8,8 +8,16 @@ export default function LandingPage() {
   const [lang, setLang] = useState(i18n.language || 'en')
 
   useEffect(() => {
-    const handler = (lng) => setLang(lng)
+    const handler = (lng) => {
+      setLang(lng)
+      // Update HTML lang attribute for SEO
+      document.documentElement.lang = lng
+    }
     i18n.on('languageChanged', handler)
+    
+    // Set initial lang attribute
+    document.documentElement.lang = i18n.language
+    
     return () => i18n.off('languageChanged', handler)
   }, [])
 

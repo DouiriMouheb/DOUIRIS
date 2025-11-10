@@ -1,0 +1,3 @@
+Contact: mailto:mouhebdouiri@yahoo.com
+Preferred-Languages: en, fr, it, ar
+Canonical: https://douirilabs.studio/.well-known/security.txt
