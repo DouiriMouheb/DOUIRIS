@@ -52,7 +52,7 @@ export default function LandingPage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Skip to main content link for accessibility */}
       <a 
         href="#main-content" 
@@ -108,7 +108,7 @@ export default function LandingPage() {
         <div className="w-px h-16 bg-gradient-to-b from-transparent via-[#BB8400]/50 to-transparent" />
       </div>
 
-      <main id="main-content" className="max-w-6xl mx-auto px-6 sm:px-8">
+      <main id="main-content" className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-hidden">
         <Hero t={t} shrink={shrink} onContact={() => setShowEmailModal(true)} />
 
         <section
