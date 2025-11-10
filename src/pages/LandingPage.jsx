@@ -52,74 +52,52 @@ export default function LandingPage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-slate-100">
+    <div className="min-h-screen bg-black text-white">
       {/* Skip to main content link for accessibility */}
       <a 
         href="#main-content" 
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-indigo-600 focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#BB8400] focus:text-white focus:rounded focus:outline-none"
       >
         Skip to main content
       </a>
 
-      {/* Sticky header with glass morphism */}
+      {/* Minimal header */}
       <header
-        className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md"
+        className="fixed top-0 left-0 right-0 z-40"
         role="banner"
         style={{
-          // hide header until user scrolls a little
           opacity: shrink > 0 ? 1 : 0,
           transform: shrink > 0 ? 'translateY(0)' : 'translateY(-12px)',
-          transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: 'all 300ms ease',
           pointerEvents: shrink > 0 ? 'auto' : 'none',
-          background: shrink > 0.3 ? 'rgba(15, 23, 42, 0.8)' : 'transparent',
-          borderBottom: shrink > 0.3 ? '1px solid rgba(148, 163, 184, 0.1)' : '1px solid transparent'
+          background: shrink > 0.3 ? 'rgba(0, 0, 0, 0.98)' : 'transparent',
+          borderBottom: shrink > 0.3 ? '1px solid rgba(187, 132, 0, 0.1)' : '1px solid transparent'
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="bg-indigo-500 text-white font-bold px-2 sm:px-3 py-1 rounded text-sm sm:text-base" aria-label="Company logo">{t('company')}</div>
-            <nav className="hidden md:flex gap-4 lg:gap-6 text-sm text-slate-200/90" aria-label="Main navigation">
-              <a className="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-1" href="#services">{t('nav.services')}</a>
-              <a className="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-1" href="#work">{t('nav.work')}</a>
-              <a className="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded px-1" href="#contact">{t('nav.contact')}</a>
+        <div className="max-w-6xl mx-auto px-6 sm:px-8 py-6 flex items-center justify-between">
+          <div className="text-xl font-light tracking-wider text-[#BB8400]">{t('company')}</div>
+          <div className="flex items-center gap-8">
+            <nav className="hidden md:flex gap-8 text-sm" aria-label="Main navigation">
+              <a className="text-white/70 hover:text-[#BB8400] transition-colors" href="#services">{t('nav.services')}</a>
+              <a className="text-white/70 hover:text-[#BB8400] transition-colors" href="#contact">{t('nav.contact')}</a>
             </nav>
-          </div>
-          <div className="flex items-center gap-2 sm:gap-4">
-            <div className="hidden md:flex items-center gap-2">
-              <div role="group" aria-label="Language selection" className="flex items-center gap-1">
-                {languages.map((l) => (
-                  <button
-                    key={l.code}
-                    onClick={() => i18n.changeLanguage(l.code)}
-                    aria-pressed={lang === l.code}
-                    aria-label={`Switch to ${l.label}`}
-                    className={`px-2 py-1 rounded text-xs transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400 ${lang === l.code ? 'bg-slate-700 text-white' : 'bg-transparent text-slate-300 hover:bg-slate-700/30'}`}>
-                    {l.label}
-                  </button>
-                ))}
-              </div>
-              <button 
-                onClick={() => setShowEmailModal(true)} 
-                aria-label="Contact us"
-                className="ml-2 bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900 text-white px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm transition-all transform hover:-translate-y-0.5"
-              >
-                {t('nav.get_in_touch')}
-              </button>
+            <div className="flex items-center gap-3">
+              {languages.map((l) => (
+                <button
+                  key={l.code}
+                  onClick={() => i18n.changeLanguage(l.code)}
+                  className={`text-xs tracking-wider transition-colors ${lang === l.code ? 'text-[#BB8400]' : 'text-white/50 hover:text-white/70'}`}>
+                  {l.label}
+                </button>
+              ))}
             </div>
-            <button 
-              onClick={() => setShowEmailModal(true)}
-              aria-label="Contact us"
-              className="md:hidden p-2 rounded-md bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-colors"
-            >
-              <Mail className="w-5 h-5 text-slate-100" />
-            </button>
           </div>
         </div>
       </header>
 
-      {/* Scroll indicator - shows when shrink === 0 */}
+      {/* Scroll indicator */}
       <div
-        className="fixed bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-30"
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-30"
         style={{
           opacity: shrink === 0 ? 1 : 0,
           transition: 'opacity 400ms ease',
@@ -127,29 +105,24 @@ export default function LandingPage() {
         }}
         aria-hidden="true"
       >
-        <div className="flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-slate-400 text-xs sm:text-sm font-medium">Scroll to explore</span>
-          <svg className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
+        <div className="w-px h-16 bg-gradient-to-b from-transparent via-[#BB8400]/50 to-transparent" />
       </div>
 
-      <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 pt-0 pb-12">
+      <main id="main-content" className="max-w-6xl mx-auto px-6 sm:px-8">
         <Hero t={t} shrink={shrink} onContact={() => setShowEmailModal(true)} />
 
         <section
           id="services"
-          className="mt-16 sm:mt-20 md:mt-24 pt-12 sm:pt-14 md:pt-16"
+          className="py-32"
           style={{
             opacity: shrink > 0 ? 1 : 0,
-            transform: shrink > 0 ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 420ms ease, transform 420ms ease'
+            transform: shrink > 0 ? 'translateY(0)' : 'translateY(30px)',
+            transition: 'opacity 600ms ease, transform 600ms ease'
           }}
         >
-          <div className="text-center mb-8 sm:mb-10 md:mb-12 px-4">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">{t('services_title')}</h2>
-            <p className="mt-2 sm:mt-3 text-slate-300 max-w-2xl mx-auto text-base sm:text-lg">End-to-end product delivery: design, engineering, and operations — tailored to your team.</p>
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-light mb-4 text-white">{t('services_title')}</h2>
+            <div className="w-16 h-px bg-[#BB8400] mx-auto" />
           </div>
 
           <ServicesGrid t={t} />
@@ -157,45 +130,43 @@ export default function LandingPage() {
 
         <section
           id="contact"
-          className="mt-16 sm:mt-20 md:mt-24 pt-12 sm:pt-14 md:pt-16"
+          className="py-32 border-t border-white/5"
           style={{
             opacity: shrink > 0 ? 1 : 0,
-            transform: shrink > 0 ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 420ms ease, transform 420ms ease'
+            transform: shrink > 0 ? 'translateY(0)' : 'translateY(30px)',
+            transition: 'opacity 600ms ease, transform 600ms ease'
           }}
         >
-          <div className="text-center mb-6 sm:mb-8 px-4">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">{t('contact_title')}</h2>
-            <p className="mt-2 sm:mt-3 text-slate-300 text-base sm:text-lg">Reach out to start a conversation about your project.</p>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-light mb-4 text-white">{t('contact_title')}</h2>
+            <div className="w-16 h-px bg-[#BB8400] mx-auto mb-8" />
+            <p className="text-white/60 text-lg max-w-2xl mx-auto">Let's create something exceptional together</p>
           </div>
 
-          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 px-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 max-w-2xl mx-auto">
             <a 
               href={`tel:${t('phone')}`} 
-              aria-label={`Call us at ${t('phone')}`}
-              className="flex items-center justify-center gap-2 bg-slate-700/30 hover:bg-slate-700/50 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900 px-5 sm:px-6 py-4 rounded-lg transition-all transform hover:-translate-y-1 hover:shadow-lg"
+              className="group flex items-center gap-3 text-white/70 hover:text-[#BB8400] transition-colors"
             >
-              <Phone className="w-5 h-5 text-indigo-300 flex-shrink-0" /> <span className="font-medium text-sm sm:text-base">{t('phone')}</span>
+              <Phone className="w-5 h-5" />
+              <span className="font-light">{t('phone')}</span>
             </a>
+            <div className="hidden sm:block w-px h-8 bg-white/10" />
             <a 
               href={`mailto:${t('email')}`} 
-              aria-label={`Email us at ${t('email')}`}
-              className="flex items-center justify-center gap-2 bg-slate-700/30 hover:bg-slate-700/50 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900 px-5 sm:px-6 py-4 rounded-lg transition-all transform hover:-translate-y-1 hover:shadow-lg"
+              className="group flex items-center gap-3 text-white/70 hover:text-[#BB8400] transition-colors"
             >
-              <Mail className="w-5 h-5 text-indigo-300 flex-shrink-0" /> <span className="font-medium text-sm sm:text-base">{t('email')}</span>
+              <Mail className="w-5 h-5" />
+              <span className="font-light">{t('email')}</span>
             </a>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-slate-700/30 mt-16 sm:mt-20 md:mt-24 py-6 sm:py-8 bg-slate-900/50" role="contentinfo">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-          <div className="text-xs sm:text-sm text-slate-400 text-center sm:text-left">{t('footer', { year: new Date().getFullYear() })}</div>
-          <nav aria-label="Footer navigation" className="flex items-center gap-4 sm:gap-6 text-slate-300 text-xs sm:text-sm">
-            <a href="#privacy" className="hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400 rounded transition-colors px-1">Privacy</a>
-            <a href="#terms" className="hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400 rounded transition-colors px-1">Terms</a>
-            <span className="text-slate-500">© {t('company')}</span>
-          </nav>
+      <footer className="border-t border-white/5 py-8" role="contentinfo">
+        <div className="max-w-6xl mx-auto px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-sm text-white/40 font-light">{t('footer', { year: new Date().getFullYear() })}</div>
+          <div className="text-sm text-white/40">© {t('company')}</div>
         </div>
       </footer>
       <EmailModal open={showEmailModal} onClose={() => setShowEmailModal(false)} />

@@ -5,49 +5,40 @@ export default function ServicesGrid({ t }) {
     { 
       title: 'Front-end', 
       desc: 'React, performance and accessible interfaces.', 
-      icon: <Code className="w-6 h-6 text-indigo-400" />,
-      gradient: 'from-indigo-500/10 to-purple-500/10'
+      icon: Code
     },
     { 
       title: 'Back-end', 
       desc: 'APIs, integrations, and scalable services.', 
-      icon: <Server className="w-6 h-6 text-emerald-400" />,
-      gradient: 'from-emerald-500/10 to-teal-500/10'
+      icon: Server
     },
     { 
       title: t('features.support'), 
       desc: 'On-call, maintenance and continuous improvements.', 
-      icon: <Phone className="w-6 h-6 text-amber-400" />,
-      gradient: 'from-amber-500/10 to-orange-500/10'
+      icon: Phone
     },
     { 
       title: t('features.consulting'), 
       desc: 'Architecture reviews and team training.', 
-      icon: <Mail className="w-6 h-6 text-pink-400" />,
-      gradient: 'from-pink-500/10 to-rose-500/10'
+      icon: Mail
     }
   ]
 
   return (
-    <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 px-4 sm:px-0">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5">
       {items.map((it, idx) => (
         <article
-          key={idx} 
-          tabIndex="0"
-          className={`group p-5 sm:p-6 rounded-xl bg-gradient-to-br ${it.gradient} backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-400/50 transition-all duration-300 transform hover:-translate-y-2 focus-within:-translate-y-2 hover:shadow-2xl cursor-pointer outline-none`}
+          key={idx}
+          className="group bg-black p-12 hover:bg-white/5 transition-all duration-500 cursor-pointer"
           style={{
-            animation: `fadeInUp 0.6s ease-out ${idx * 0.1}s both`
+            animation: `fadeInUp 0.8s ease-out ${idx * 0.15}s both`
           }}
-          role="article"
-          aria-label={it.title}
         >
-          <div className="flex flex-col gap-3 sm:gap-4">
-            <div className="p-2.5 sm:p-3 bg-slate-800/50 rounded-lg w-fit group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
-              {it.icon}
-            </div>
+          <div className="flex flex-col items-start gap-6">
+            <it.icon className="w-8 h-8 text-[#BB8400]/50 group-hover:text-[#BB8400] transition-colors duration-500" />
             <div>
-              <h4 className="font-semibold text-base sm:text-lg mb-1.5 sm:mb-2">{it.title}</h4>
-              <p className="text-slate-400 text-sm leading-relaxed">{it.desc}</p>
+              <h4 className="text-xl font-light text-white mb-3">{it.title}</h4>
+              <p className="text-white/50 text-sm leading-relaxed font-light">{it.desc}</p>
             </div>
           </div>
         </article>
