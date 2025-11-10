@@ -74,14 +74,14 @@ export default function LandingPage() {
           borderBottom: shrink > 0.3 ? '1px solid rgba(187, 132, 0, 0.1)' : '1px solid transparent'
         }}
       >
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 py-6 flex items-center justify-between">
-          <div className="text-xl font-light tracking-wider text-[#BB8400]">{t('company')}</div>
-          <div className="flex items-center gap-8">
-            <nav className="hidden md:flex gap-8 text-sm" aria-label="Main navigation">
-              <a className="text-white/70 hover:text-[#BB8400] transition-colors" href="#services">{t('nav.services')}</a>
-              <a className="text-white/70 hover:text-[#BB8400] transition-colors" href="#contact">{t('nav.contact')}</a>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 flex items-center justify-between gap-3">
+          <div className="text-base sm:text-xl font-light tracking-wider text-[#BB8400] truncate">{t('company')}</div>
+          <div className="flex items-center gap-3 sm:gap-8 flex-shrink-0">
+            <nav className="hidden md:flex gap-4 lg:gap-8 text-sm" aria-label="Main navigation">
+              <a className="text-white/70 hover:text-[#BB8400] transition-colors whitespace-nowrap" href="#services">{t('nav.services')}</a>
+              <a className="text-white/70 hover:text-[#BB8400] transition-colors whitespace-nowrap" href="#contact">{t('nav.contact')}</a>
             </nav>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               {languages.map((l) => (
                 <button
                   key={l.code}
